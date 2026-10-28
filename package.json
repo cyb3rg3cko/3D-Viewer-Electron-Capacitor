@@ -1,0 +1,105 @@
+{
+  "name": "viewer3d",
+  "productName": "3D Viewer",
+  "version": "1.0.0",
+  "description": "Viewer for GLB, glTF, FBX, VRM and STL models",
+  "main": "electron/main.js",
+  "author": {
+    "name": "CYB3RG3CKO",
+    "email": "cyb3rg3cko@gmail.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never",
+    "android:add": "cap add android",
+    "android:sync": "node scripts/patch-android.mjs && cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.3",
+    "electron": "^45.1.0",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.cyb3rg3cko.viewer3d",
+    "productName": "3D Viewer",
+    "artifactName": "3D-Viewer-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "www/**/*",
+      "package.json",
+      "!node_modules/@capacitor/**",
+      "!node_modules/tslib/**"
+    ],
+    "fileAssociations": [
+      {
+        "ext": "glb",
+        "name": "GLB Model",
+        "description": "glTF Binary model",
+        "mimeType": "model/gltf-binary",
+        "role": "Viewer"
+      },
+      {
+        "ext": "gltf",
+        "name": "glTF Model",
+        "description": "glTF model",
+        "mimeType": "model/gltf+json",
+        "role": "Viewer"
+      },
+      {
+        "ext": "fbx",
+        "name": "FBX Model",
+        "description": "Autodesk FBX model",
+        "mimeType": "application/x-fbx",
+        "role": "Viewer"
+      },
+      {
+        "ext": "vrm",
+        "name": "VRM Avatar",
+        "description": "VRM avatar model",
+        "mimeType": "model/vrm",
+        "role": "Viewer"
+      },
+      {
+        "ext": "stl",
+        "name": "STL Model",
+        "description": "Stereolithography model",
+        "mimeType": "model/stl",
+        "role": "Viewer"
+      }
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "category": "public.app-category.graphics-design",
+      "identity": null,
+      "target": [
+        { "target": "dmg", "arch": ["x64", "arm64"] }
+      ]
+    },
+    "linux": {
+      "category": "Graphics",
+      "target": [
+        { "target": "AppImage", "arch": ["x64"] },
+        { "target": "deb", "arch": ["x64"] }
+      ]
+    }
+  }
+}
