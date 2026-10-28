@@ -25,12 +25,33 @@ git tag Android_v1.0.0 && git push origin Android_v1.0.0   # .apk
 The version number comes from the tag. Both workflows can also be run by hand
 from the Actions tab (artifacts only, no release).
 
+## App icon
+
+Put `icon.png` and/or `icon.ico` in the repo root; both builds pick them up.
+
+- **`icon.png`** (1024x1024 recommended) is used everywhere: macOS, Linux, Android,
+  and Windows too when there's no `.ico`.
+- **`icon.ico`** is used as-is for Windows. If there's no `icon.png`, the largest
+  image inside the `.ico` is used for the other platforms (usually 256px, so it's
+  upscaled and looks soft; add an `icon.png` for a crisp result).
+
+On Android the icon is placed on a `#1a1a1a` background for adaptive icons, so
+leave a little margin if your design runs to the edges. Without either file the
+default Electron and Capacitor icons are used.
+
+To preview locally: `node scripts/prepare-icons.mjs && npm start`.
+
 ## Opening files by double-click
 
 **Desktop.** The installers register `.glb .gltf .fbx .vrm .stl .obj`. Use the Windows
 installer (`.exe`) or the `.deb` on Linux; an AppImage does not register file
 types unless integrated with a tool like AppImageLauncher. If the app is already
 open, double-clicking another file opens it in the existing window.
+
+**Linux** builds target Ubuntu 22.04 and newer (and other distros of similar age).
+The `.deb` is the recommended install. The AppImage needs FUSE 2
+(`sudo apt install libfuse2` on 22.04, `libfuse2t64` on 24.04+), and on 24.04+ you
+may need to run it with `--no-sandbox` because of Ubuntu's AppArmor restrictions.
 
 **Android.** The app appears under "Open with" for model files. Many file managers
 report these files as `application/octet-stream`, so the app also accepts that

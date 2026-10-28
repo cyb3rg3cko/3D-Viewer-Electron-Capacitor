@@ -16,7 +16,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        # Linux builds on the oldest supported Ubuntu (22.04) so the .deb and AppImage
+        # work on 22.04 and everything newer.
+        os: [windows-latest, macos-latest, ubuntu-22.04]
 
     steps:
       - name: Checkout
@@ -38,6 +40,9 @@ jobs:
           VERSION="${GITHUB_REF_NAME#Desktop_v}"
           echo "Building version $VERSION"
           npm version "$VERSION" --no-git-tag-version --allow-same-version
+
+      - name: Prepare icons (icon.png / icon.ico)
+        run: node scripts/prepare-icons.mjs
 
       - name: Build installers
         shell: bash

@@ -63,6 +63,9 @@ jobs:
       - name: Add file associations and version
         run: node scripts/patch-android.mjs
 
+      - name: Generate launcher icons (icon.png / icon.ico)
+        run: node scripts/prepare-icons.mjs --android
+
       - name: Sync web assets
         run: npx cap sync android
 

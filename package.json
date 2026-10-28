@@ -27,6 +27,7 @@
     "electron": "^45.1.0",
     "electron-builder": "^26.18.0",
     "esbuild": "^0.28.2",
+    "sharp": "^0.35.5",
     "three": "^0.170.0"
   },
   "build": {
@@ -36,6 +37,7 @@
     "directories": {
       "output": "dist"
     },
+    "publish": null,
     "files": [
       "electron/**/*",
       "www/**/*",
@@ -130,6 +132,22 @@
             "x64"
           ]
         }
+      ],
+      "icon": "build/icons"
+    },
+    "deb": {
+      "depends": [
+        "libgtk-3-0",
+        "libnotify4",
+        "libnss3",
+        "libxss1",
+        "libxtst6",
+        "xdg-utils",
+        "libatspi2.0-0",
+        "libuuid1",
+        "libsecret-1-0",
+        "libgbm1",
+        "libasound2"
       ]
     }
   }

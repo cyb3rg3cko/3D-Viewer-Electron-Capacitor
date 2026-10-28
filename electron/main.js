@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+const WINDOW_ICON = path.join(__dirname, '..', 'www', 'icon.png'); // from scripts/prepare-icons.mjs
 const SUPPORTED_EXTS = new Set(['.glb', '.gltf', '.fbx', '.vrm', '.stl', '.obj']);
 
 let mainWindow = null;
@@ -88,6 +89,8 @@ function createWindow() {
     title: '3D Viewer',
     backgroundColor: '#1a1a1a',
     show: false,
+    // Window/taskbar icon on Windows and Linux (macOS uses the app bundle's icon).
+    ...(fs.existsSync(WINDOW_ICON) && process.platform !== 'darwin' ? { icon: WINDOW_ICON } : {}),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
