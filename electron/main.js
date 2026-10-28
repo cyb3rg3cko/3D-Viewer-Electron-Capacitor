@@ -32,6 +32,14 @@ function openPath(filePath) {
   }
 }
 
+/* WebGL: three.js needs WebGL2. Chromium blocklists many Linux GPU/driver combinations
+   ("WebGL2 blocklisted"), so ignore that list on Linux. If the GPU still can't provide
+   WebGL, fall back to SwiftShader (software rendering) instead of showing nothing.
+   VIEWER3D_SOFTWARE_GL=1 forces software rendering for drivers that misbehave. */
+if (process.platform === 'linux') app.commandLine.appendSwitch('ignore-gpu-blocklist');
+app.commandLine.appendSwitch('enable-unsafe-swiftshader');
+if (process.env.VIEWER3D_SOFTWARE_GL === '1') app.disableHardwareAcceleration();
+
 /* Only one instance: a second double-click forwards its file to the running window. */
 if (!app.requestSingleInstanceLock()) {
   app.quit();

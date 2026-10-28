@@ -35,8 +35,8 @@ Put `icon.png` and/or `icon.ico` in the repo root; both builds pick them up.
   image inside the `.ico` is used for the other platforms (usually 256px, so it's
   upscaled and looks soft; add an `icon.png` for a crisp result).
 
-On Android the icon is placed on a `#1a1a1a` background for adaptive icons, so
-leave a little margin if your design runs to the edges. Without either file the
+On Android the whole icon is scaled to fit inside the launcher's mask, on a navy
+`#04163f` background (`ANDROID_BG` in `scripts/prepare-icons.mjs`). Without either file the
 default Electron and Capacitor icons are used.
 
 To preview locally: `node scripts/prepare-icons.mjs && npm start`.
@@ -52,6 +52,12 @@ open, double-clicking another file opens it in the existing window.
 The `.deb` is the recommended install. The AppImage needs FUSE 2
 (`sudo apt install libfuse2` on 22.04, `libfuse2t64` on 24.04+), and on 24.04+ you
 may need to run it with `--no-sandbox` because of Ubuntu's AppArmor restrictions.
+
+**Graphics on Linux.** Chromium disables WebGL2 on many Linux GPU drivers, which
+would leave the viewer blank, so the app ignores that blocklist and falls back to
+software rendering if the GPU still can't help. If a driver misbehaves anyway, start
+it with `VIEWER3D_SOFTWARE_GL=1 viewer3d` (or `VIEWER3D_SOFTWARE_GL=1 ./3D-Viewer*.AppImage`).
+`libva error` lines in the terminal are harmless (hardware video decoding, unused here).
 
 **Android.** The app appears under "Open with" for model files. Many file managers
 report these files as `application/octet-stream`, so the app also accepts that
