@@ -33,8 +33,12 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      # The Android SDK is preinstalled on ubuntu-latest (ANDROID_HOME is set);
+      # Gradle downloads any missing platform / build-tools on its own.
+      - name: Check Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls "$ANDROID_HOME/build-tools" "$ANDROID_HOME/platforms"
 
       - name: Install dependencies
         run: npm ci
