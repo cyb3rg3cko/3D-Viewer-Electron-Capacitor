@@ -2,7 +2,7 @@
   "name": "viewer3d",
   "productName": "3D Viewer",
   "version": "1.0.0",
-  "description": "Viewer for GLB, glTF, FBX, VRM and STL models",
+  "description": "Viewer for GLB, glTF, FBX, VRM, STL and OBJ models",
   "main": "electron/main.js",
   "author": {
     "name": "CYB3RG3CKO",
@@ -14,7 +14,8 @@
     "start": "electron .",
     "dist": "electron-builder --publish never",
     "android:add": "cap add android",
-    "android:sync": "node scripts/patch-android.mjs && cap sync android"
+    "android:sync": "node scripts/patch-android.mjs && cap sync android",
+    "build:obj": "esbuild src/obj-loader-entry.js --bundle --format=iife --alias:three=./src/three-shim.js --legal-comments=inline --outfile=www/obj-loader.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.3",
@@ -24,7 +25,9 @@
   "devDependencies": {
     "@capacitor/cli": "^8.5.3",
     "electron": "^45.1.0",
-    "electron-builder": "^26.18.0"
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.28.2",
+    "three": "^0.170.0"
   },
   "build": {
     "appId": "com.cyb3rg3cko.viewer3d",
@@ -75,11 +78,23 @@
         "description": "Stereolithography model",
         "mimeType": "model/stl",
         "role": "Viewer"
+      },
+      {
+        "ext": "obj",
+        "name": "OBJ Model",
+        "description": "Wavefront OBJ model",
+        "mimeType": "model/obj",
+        "role": "Viewer"
       }
     ],
     "win": {
       "target": [
-        { "target": "nsis", "arch": ["x64"] }
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     },
     "nsis": {
@@ -91,14 +106,30 @@
       "category": "public.app-category.graphics-design",
       "identity": null,
       "target": [
-        { "target": "dmg", "arch": ["x64", "arm64"] }
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
       ]
     },
     "linux": {
       "category": "Graphics",
       "target": [
-        { "target": "AppImage", "arch": ["x64"] },
-        { "target": "deb", "arch": ["x64"] }
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     }
   }

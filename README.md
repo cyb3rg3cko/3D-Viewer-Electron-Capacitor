@@ -1,6 +1,6 @@
 # 3D Viewer
 
-Viewer for GLB, glTF, FBX, VRM and STL models.
+Viewer for GLB, glTF, FBX, VRM, STL and OBJ models.
 
 - **Desktop** (Windows, macOS, Linux): Electron, in `electron/`
 - **Android**: Capacitor, which wraps the same web app in `www/`
@@ -27,7 +27,7 @@ from the Actions tab (artifacts only, no release).
 
 ## Opening files by double-click
 
-**Desktop.** The installers register `.glb .gltf .fbx .vrm .stl`. Use the Windows
+**Desktop.** The installers register `.glb .gltf .fbx .vrm .stl .obj`. Use the Windows
 installer (`.exe`) or the `.deb` on Linux; an AppImage does not register file
 types unless integrated with a tool like AppImageLauncher. If the app is already
 open, double-clicking another file opens it in the existing window.
@@ -43,10 +43,9 @@ by sideloading. To sign a release build, add these repository secrets:
 
 | Secret | Value |
 | --- | --- |
-| `ANDROID_KEYSTORE_BASE64` | `base64 -w0 release.keystore` |
-| `ANDROID_KEYSTORE_PASSWORD` | keystore password |
+| `ANDROID_KEY_BASE64` | `base64 -w0 release.keystore` |
 | `ANDROID_KEY_ALIAS` | key alias |
-| `ANDROID_KEY_PASSWORD` | key password |
+| `ANDROID_KEY_PASSWORD` | password (used for both the keystore and the key) |
 
 Create a keystore with:
 `keytool -genkey -v -keystore release.keystore -alias viewer3d -keyalg RSA -keysize 2048 -validity 10000`

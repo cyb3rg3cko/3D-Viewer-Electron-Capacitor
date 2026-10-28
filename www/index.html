@@ -169,7 +169,7 @@
     <div id="dropzone">Drop a 3D model here</div>
   </div>
 
-  <input type="file" id="file-input" accept=".glb,.gltf,.fbx,.vrm,.stl,.GLB,.GLTF,.FBX,.VRM,.STL">
+  <input type="file" id="file-input" accept=".glb,.gltf,.fbx,.vrm,.stl,.obj,.GLB,.GLTF,.FBX,.VRM,.STL,.OBJ">
 
   <div id="about-modal">
     <div id="about-box">
@@ -180,6 +180,7 @@
         <li>FBX (meshes + embedded textures)</li>
         <li>VRM (avatars with MToon materials)</li>
         <li>STL (geometry; vertex colors if present)</li>
+        <li>OBJ (geometry; vertex colors if present)</li>
       </ul>
       <p>Code by <strong>CYB3RG3CKO</strong></p>
       <button id="about-close">Close</button>
@@ -188,5 +189,6 @@
   </div>
 
   <script src="bundle.js"></script>
+  <script src="obj-loader.js"></script>
 </body>
 </html>

@@ -32,7 +32,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-          cache: gradle
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -62,6 +61,10 @@ jobs:
 
       - name: Sync web assets
         run: npx cap sync android
+
+      # Gradle caching goes here, not on setup-java: android/ only exists after "cap add".
+      - name: Setup Gradle (with cache)
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build debug APK
         if: env.HAS_KEYSTORE != 'true'

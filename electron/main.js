@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-const SUPPORTED_EXTS = new Set(['.glb', '.gltf', '.fbx', '.vrm', '.stl']);
+const SUPPORTED_EXTS = new Set(['.glb', '.gltf', '.fbx', '.vrm', '.stl', '.obj']);
 
 let mainWindow = null;
 let rendererReady = false;

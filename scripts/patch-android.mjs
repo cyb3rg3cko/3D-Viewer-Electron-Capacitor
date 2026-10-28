@@ -27,6 +27,8 @@ const MIME_TYPES = [
   'application/sla',
   'application/vnd.ms-pki.stl',
   'application/x-fbx',
+  'model/obj',
+  'application/x-tgif', // what Android/Linux MIME tables often call .obj
   'application/octet-stream',
 ];
 
