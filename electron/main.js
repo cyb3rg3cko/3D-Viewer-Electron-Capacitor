@@ -39,6 +39,9 @@ function openPath(filePath) {
 if (process.platform === 'linux') app.commandLine.appendSwitch('ignore-gpu-blocklist');
 app.commandLine.appendSwitch('enable-unsafe-swiftshader');
 if (process.env.VIEWER3D_SOFTWARE_GL === '1') app.disableHardwareAcceleration();
+// After a GPU reset (e.g. a huge model exhausting video memory) Chromium would block
+// WebGL for the page; allow it so the viewer can recover with smaller textures.
+app.disableDomainBlockingFor3DAPIs();
 
 /* Only one instance: a second double-click forwards its file to the running window. */
 if (!app.requestSingleInstanceLock()) {

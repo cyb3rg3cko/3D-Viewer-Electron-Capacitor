@@ -59,6 +59,11 @@ software rendering if the GPU still can't help. If a driver misbehaves anyway, s
 it with `VIEWER3D_SOFTWARE_GL=1 viewer3d` (or `VIEWER3D_SOFTWARE_GL=1 ./3D-Viewer*.AppImage`).
 `libva error` lines in the terminal are harmless (hardware video decoding, unused here).
 
+**Large models.** Textures are capped at 4096 px so oversized ones (e.g. 8K scans)
+don't exhaust video memory. If the GPU still runs out, the viewer recovers with
+2048 px, then 1024 px textures, and as a last resort unloads the model with a message
+instead of freezing.
+
 **Android.** The app appears under "Open with" for model files. Many file managers
 report these files as `application/octet-stream`, so the app also accepts that
 type and detects the real format from the file contents.
