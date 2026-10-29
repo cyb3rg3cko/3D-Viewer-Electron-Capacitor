@@ -64,6 +64,12 @@ don't exhaust video memory. If the GPU still runs out, the viewer recovers with
 2048 px, then 1024 px textures, and as a last resort unloads the model with a message
 instead of freezing.
 
+**FBX textures.** Embedded PNG, JPEG, BMP, TGA and TIFF textures are supported;
+browsers can't decode TGA/TIFF, so `www/texture-loaders.js` decodes them
+(rebuild with `npm run build:loaders` if you update three.js). Textures stored as
+separate files next to the `.fbx` (rather than embedded) aren't loaded, nor are
+PSD/DDS textures; those surfaces render dark.
+
 **Android.** The app appears under "Open with" for model files. Many file managers
 report these files as `application/octet-stream`, so the app also accepts that
 type and detects the real format from the file contents.

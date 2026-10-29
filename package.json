@@ -15,7 +15,9 @@
     "dist": "electron-builder --publish never",
     "android:add": "cap add android",
     "android:sync": "node scripts/patch-android.mjs && cap sync android",
-    "build:obj": "esbuild src/obj-loader-entry.js --bundle --format=iife --alias:three=./src/three-shim.js --legal-comments=inline --outfile=www/obj-loader.js"
+    "build:obj": "esbuild src/obj-loader-entry.js --bundle --format=iife --alias:three=./src/three-shim.js --legal-comments=inline --outfile=www/obj-loader.js",
+    "build:textures": "esbuild src/texture-loaders-entry.js --bundle --minify --format=iife --alias:three=./src/texture-shim.js --legal-comments=inline --outfile=www/texture-loaders.js",
+    "build:loaders": "npm run build:obj && npm run build:textures"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.3",
@@ -28,7 +30,8 @@
     "electron-builder": "^26.18.0",
     "esbuild": "^0.28.2",
     "sharp": "^0.35.5",
-    "three": "^0.170.0"
+    "three": "^0.170.0",
+    "utif2": "^4.1.0"
   },
   "build": {
     "appId": "com.cyb3rg3cko.viewer3d",
